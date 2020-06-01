@@ -1,0 +1,39 @@
+<table class="table table-hover mx-2 my-4">
+    <h5></h5>
+    <thead>
+        <tr>
+            <th class="align-middle">Shipping_id</th>
+            <th class="align-middle">FullName</th>
+            <th class="align-middle">Address</th>
+            <th class="align-middle">Phone</th>
+            <th class="align-middle">Order_date</th>
+            <th class="align-middle">Status</th>
+            <th class="align-middle">Delivery_date</th>
+            <th class="align-middle">View</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {{#each result}}
+        <tr>
+            <td>{{order_id}}</td>
+            <td> {{#if_eq fullname 'Anonymous'}}
+                {{name}}
+                {{else}}
+                {{fullname}}
+                {{/if_eq}}
+            </td>
+            <td>{{city_name}},{{state}}</td>
+            <td>{{phone}}</td>
+            <td>{{date}}</td>
+            {{#ifEquals status 0}}
+            <td><button type="button" class="btn btn-sm btn-primary" style="background-color:#3F729B;">Delivered</button></td>
+            {{/ifEquals}}
+            <td>{{delivery_date}}</td>
+            <td>
+                <a href="/viewBill/{{order_id}}/{{fullname}}">View</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

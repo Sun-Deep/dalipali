@@ -1,0 +1,33 @@
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+  <table class="table">
+    <thead>
+      <tr>
+        <th >Delivery Address</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each result }}
+      <tr>
+        <td class="align-middle">{{city_name}}</td>
+        <td class="align-middle">{{#ifEquals status 1}}<form action="/product/placeStatus/{{city_id}}"
+            method="post">
+            <input type="hidden" name="status" value="0">
+            <input type="submit" class="btn btn-primary btn-sm " value="Active">
+          </form>
+          {{else}} <form action="/product/placeStatus/{{city_id}}" method="post">
+            <input type="hidden" name="status" value="1">
+            <button type="submit" class="btn btn-danger btn-sm"> Inactive</button>
+          </form>
+          {{/ifEquals}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+</div>
+<div class="col-md-1"></div>
+</div>

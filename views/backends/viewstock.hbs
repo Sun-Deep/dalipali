@@ -1,0 +1,50 @@
+<div class="col-md-1"></div>
+<div class="col-md-10">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product_Name</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each result }}
+      <tr>
+        <td class="align-middle">{{product_name}}</td>
+        <td class="align-middle d-block">{{amount}} <button class="btn btn1" value="{{stock_id}}"><i
+              class="fa fa-edit"></i></button>
+          <span class="div-hidden_{{stock_id}}" style="display: none ;">
+            <div class="d-block">
+              <form action="product/stock_edit/{{stock_id}}" class="d-inline" method="post">
+                <input type="hidden" name="amount_first" value="{{amount}}">
+                <input type="hidden" name="product_id" value="{{product_id}}">
+                <input type="text" name="amount_second" value="{{amount}}" size='4'>
+                <button type="submit" class="btn btn-sm d-inline"><i
+                    class="fas fa-check-circle text-success"></i></button>
+              </form>
+              <button class="btn btn-sm mx-n2 d-inline btn2" value="{{stock_id}}"><i
+                  class="fas fa-times-circle text-danger"></i></button>
+            </div>
+          </span>
+
+        </td>
+        <td class="align-middle">{{#ifEquals status 1}} <form action="/product/stockStatus/{{stock_id}}"
+            method="post">
+            <input type="hidden" name="status" value="0">
+            <input type="submit" class="btn btn-primary btn-sm " value="Active">
+          </form>
+          {{else}} <form action="/product/stockStatus/{{stock_id}}" method="post">
+            <input type="hidden" name="status" value="1">
+            <button type="submit" class="btn btn-danger btn-sm"> Inactive</button>
+          </form>
+          {{/ifEquals}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+</div>
+<div class="col-md-1"></div>
+</div>

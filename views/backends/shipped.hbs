@@ -1,0 +1,47 @@
+<table class="table table-hover mx-2 my-4">
+    <h5>Going to Shipping</h5>
+    <thead>
+        <tr>
+            <th>Shipping_id</th>
+            <th>FullName</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Order_date</th>
+            <th style="padding-left: 5%;">Action</th>
+            <th>View</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {{#each result}}
+        <tr>
+            <td>{{order_id}}</td>
+            <td> {{#if_eq fullname 'Anonymous'}}
+                {{name}}
+                {{else}}
+                {{fullname}}
+                {{/if_eq}}
+            </td>
+            <td>{{city_name}},{{state}}</td>
+            <td>{{phone}}</td>
+            <td>{{date}}</td>
+            <td>
+                <form class="d-inline" action="/product/orderStatus/{{order_id}}" method="post">
+                    <input type="hidden" name="status" value="0">
+                    <input type="hidden" name="type" value="ready">
+                    <button class="btn btn-sm btn-secondary" style="background-color:#3F729B;">Delivered</button>
+                </form>
+                <form class="d-inline" action="/product/orderStatus/{{order_id}}" method="post">
+                    <input type="hidden" name="status" value="5">
+                    <input type="hidden" name="type" value="ready">
+                    <button class="btn btn-sm btn-danger">Cancel</button>
+                </form>
+            </td>
+
+            <td>
+                <a href="/viewBill/{{order_id}}/{{fullname}}">View</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

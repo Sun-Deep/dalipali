@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 my-5">
+        <div class="row">
+            <div class="col-md-10 mx-4">
+                <div class="card guest-card">
+                    <form class="needs-validation m-4" action="/product/order" method="POST">
+                        <h5 class="mb-4">Please Confirm your delivery address </h5>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationTooltip03">City</label>
+                            {{#if city}}
+                            <select class="custom-select" name="city">
+                                {{#each result}}
+                                <option value="{{city_id}}" {{#if_eq city city_if}} selected {{else}} {{/if_eq}}>
+                                    {{city_name}}</option>
+                                {{/each}}
+                            </select>
+                            {{else}}
+                             <select class="custom-select" name="city">
+                                {{#each result}}
+                                <option value="{{city_id}}">{{city_name}}</option>
+                                {{/each}}
+                            </select>
+                            {{/if}}
+                            
+
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationTooltip04">Address</label>
+                            <input type="text" name="address" class="form-control" id="validationTooltip04"
+                                placeholder="State" required>
+                            <div class="invalid-tooltip">
+                                Please provide a valid state.
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationTooltip05">Mobile Number</label>
+                            <input type="text" name="phone" class="form-control" id="validationTooltip05"
+                                placeholder="98xxxxxxxx" value="{{phone}}" required>
+                            <div class="invalid-tooltip">
+                                Please provide a valid zip.
+                            </div>
+                        </div>
+
+                        <button class="btn btn-sm btn-success" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

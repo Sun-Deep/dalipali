@@ -1,0 +1,223 @@
+<div class="row">
+    <div class="col col-sm-2 col-md-2"></div>
+    <div class="col col-sm-9 col-md-8  my-5">
+        <div class="card">
+            {{#if message}}
+            <div id="#hidden" class="alert alert-success alert-dismissible fade show m-2" role="alert">
+                <strong>Thank You!</strong> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            {{#if product}}
+            <span style="text-align: center;" class="mt-2">Cart Shopping</span>
+            <table class="table table-bordered mt-2 tables">
+                <thead>
+                    <tr>
+                        <th scope="col">Item_Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">rate</th>
+                        <th scop="col">total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form>
+
+                        {{#each product}}
+                        <tr>
+                            {{#each item}}
+                            <td>{{this.product_name}} </td>
+                            {{/each}}
+                            <td>
+                                {{#each item}} <a href="/add/{{this.product_id}}"
+                                    class=" btn btn-primary btn-sm btn-xs bnt-font mr">+</a>
+                                {{/each}}
+                                {{this.qty}}
+                                {{#each item}}
+                                <a href="/reduce/{{this.product_id}}"
+                                    class=" btn btn-primary btn-sm bnt-font btn-xss  ml">-</a>
+                                {{/each}}
+                            </td>
+                            {{#each item}}
+                            <td>{{this.price}}</td>
+                            {{/each}}
+                            <td>{{this.price}}</td>
+                        </tr>
+                        {{/each}}
+                        <tr>
+                            <td></td>
+                            <td colspan="2">Total Price</td>
+                            <td>Rs{{this.totalPrice}}</td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+            <div class="row my-2">
+                <div class="col col-md-6"></div>
+                <div class="col col-md-6">
+                    <div class="bnt-margin">
+                        <a href="/product/removeAll" class="btn btn-danger btn-sm mx-2 bnt-font ">Remove all</a>
+                        {{#if login}}
+                        <a href="/checkOut" class="btn btn-success  btn-sm bnt-font">Checkout</a>
+                        {{else}}
+                        <a href="#" class="btn btn-success btn-sm bnt-font" data-toggle="modal"
+                            data-target="#exampleModal">
+                            Checkout
+                        </a>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="my-1"></div>
+            </div>
+
+            {{else}}
+
+            <span style="text-align: center; margin:10%;">No Item!</span>
+
+            {{/if}}
+
+        </div>
+    </div>
+    <div class="col col-sm-2 col-md-2"></div>
+    {{!-- <div class="col col-md-8 card my-5">
+        {{#if message}}
+        <div id="#hidden" class="alert alert-success alert-dismissible fade show m-2" role="alert">
+            <strong>Thank You!</strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {{/if}}
+        {{#if product}}
+        <span style="text-align: center;" class="mt-2">Cart Shopping</span>
+        <table class="table table-bordered mt-2 tables">
+            <thead>
+                <tr>
+                    <th scope="col">Item_Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">rate</th>
+                    <th scop="col">total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form>
+
+                    {{#each product}}
+                    <tr>
+                        {{#each item}}
+                        <td>{{this.product_name}} </td>
+                        {{/each}}
+                        <td>
+                            {{#each item}} <a href="/add/{{this.product_id}}" class=" btn btn-primary btn-sm mx-2">+</a>
+                            {{/each}}
+                            {{this.qty}}
+                            {{#each item}}
+                            <a href="/reduce/{{this.product_id}}" class=" btn btn-primary btn-sm mx-2">-</a>
+                            {{/each}}
+                        </td>
+                        {{#each item}}
+                        <td>{{this.price}}</td>
+                        {{/each}}
+                        <td>{{this.price}}</td>
+                    </tr>
+                    {{/each}}
+                    <tr>
+                        <td></td>
+                        <td colspan="2">Total Price</td>
+                        <td>Rs{{this.totalPrice}}</td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+        <div class="row my-2">
+            <div class="col col-md-8"></div>
+            <div class="col-md-4">
+                <a href="/product/removeAll" class="btn btn-danger btn-sm mx-4">Remove all</a>
+                {{#if login}}
+                <a href="/checkOut" class="btn btn-success  btn-sm">Checkout</a>
+                {{else}}
+                <a href="#" class="btn btn-success  btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    Checkout
+                </a>
+                {{/if}}
+            </div>
+            <div class="my-1"></div>
+        </div>
+
+        {{else}}
+
+        <span style="text-align: center; margin:10%;">No Item!</span>
+
+        {{/if}}
+    </div> --}}
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dali Shopping</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You can order as guest but login recommended
+            </div>
+            <div class="modal-footer">
+                <a href="/checkOut" class="btn btn-primary  btn-sm">Login</a>
+                <a href="/guestuser" class="btn btn-primary btn-sm">Guest</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- {{#if product}}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="list-group">
+                {{#each product}}
+                    <div class="list-group-item border">
+                        {{#each item}}
+                        <strong>{{this.product_name}}</strong>
+                        {{/each}}
+                        <span class="badge price-cart">${{this.price}}</span>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-raised btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/reduce/{{ this.item._id }}">Reduce by 1</a>
+                                <a class="dropdown-item" href="/remove/{{ this.item._id }}">Remove All</a>
+                            </div>
+                        </div>
+                        <span class="total">{{this.qty}}</span>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            
+            <strong>Total: {{totalPrice}}</strong>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <a href="/checkout" class="btn btn-raised  btn-success">Checkout</a>
+        </div>
+    </div>
+{{else}}
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 main">
+            <h2>No items in Cart</h2>
+        </div>
+    </div>
+{{/if}} --}}

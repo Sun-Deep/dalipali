@@ -1,0 +1,126 @@
+{{#if msg}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    {{#if error}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+<div class="row">
+    <div class="col-md-5 p-5">
+        <h4 class="mb-5">Guest Registration</h4>
+        <form action="/subscription/trial" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" required>
+            </div>
+        
+    </div>
+    <div class="col-md-5 p-5">
+        <h4 class="mb-5">Take Trail</h4>
+        <div class="form-group">
+            <label for="name">Select Product</label>
+            <select name="product_id" id="product_id" class="form-control" required>
+                <option value="">--Select--</option>
+                {{#each products}}
+                    <option value="{{product_id}}">{{product_name}} - Rs.{{price}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="startdate">Start Date</label>
+            <input type="date" name="startdate" id="startdate" class="form-control" required>
+        </div>
+        {{!-- <div class="form-group">
+            <label for="enddate">End Date</label>
+            <input type="date" name="enddate" id="enddate" class="form-control" required>
+        </div> --}}
+        
+        <div class="form-grop mt-4">
+            <label for="">Time Slot</label>
+            <br>
+            <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6 - 7 AM" id="timeslot1" name="timeslot1" checked>
+                <label class="form-check-label" for="timeslot1">
+                    6 - 7 AM
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" value="7 - 8 AM" id="timeslot2" name="timeslot2">
+                <label class="form-check-label" for="timeslot2">
+                    7 - 8 AM
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" value="6 - 7 PM" id="timeslot3" name="timeslot3">
+                <label class="form-check-label" for="timeslot3">
+                    6 - 7 PM
+                </label>
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <label for="startdate">Deliver Model</label>
+            <br>
+            <div class="form-check-inline">
+                <input type="radio" name="delivermode" value="Doorstep" id="delivermode1" class="form-check-input" name="delivermode" required>
+                <label for="form-check-label" for="">Doorstep</label>
+            </div>
+            <div class="form-check-inline">
+                <input type="radio" name="delivermode" value="In Hand" id="delivermode2" class="form-check-input" name="delivermode" required>
+                <label for="form-check-label" for="">In Hand</label>
+            </div>
+            <div class="form-check-inline">
+                <input type="radio" name="delivermode" value="Ring Bell" id="delivermode3" class="form-check-input" name="delivermode" required>
+                <label for="form-check-label" for="">Ring Bell</label>
+            </div>
+        </div>
+        {{!-- <div class="form-group mt-4" id="days" style="display: none;">
+            <label for="" class="text-muted">Day 1</label>
+                <button type="button" class="btn btn-success btn-sm" onclick="add()">+</button>
+                <input type="text" class="" id="qty" style="width: 50px; border:1px solid gray; text-align: center;">
+                <button type="button" class="btn btn-success btn-sm" onclick="sub()">-</button>
+        </div> --}}
+        <input type="submit" value="Submit" class="btn btn-success btn-md">
+        </form>
+    </div>
+</div>
+
+{{!-- <script>
+    function add(){
+        var qty = document.getElementById('qty').value != '' ? document.getElementById('qty').value : "0"
+        document.getElementById('qty').value = parseFloat(qty) + 0.5 + "L"
+    }
+
+    function sub(){
+        var qty = document.getElementById('qty').value != '' ? document.getElementById('qty').value : "0"
+        qty = qty.split(" ")[0]
+        if (parseFloat(qty) > 0){
+            document.getElementById('qty').value = parseFloat(qty) - 0.5 + "L"
+        } 
+    }
+
+    function showDays(){
+        if(document.getElementById('diffquantity').checked){
+            document.getElementById('days').style.display = 'block'
+        }else{
+            document.getElementById('days').style.display = 'none'
+        }
+    }
+    
+</script> --}}

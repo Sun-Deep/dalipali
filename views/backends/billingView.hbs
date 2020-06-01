@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8 ">
+    <div class="row">
+      <div class="col-md-3 mx-4">
+        <div class="h5">shipping_id:-{{ shipping_id}}</div>
+        <div class="h5">Date:-{{date}}</div>
+        <div><br></div>
+      </div>
+      <div class="col-md-7">
+        <span class="h5 text-capitalize">Order by:-<span class="text-gray-800">{{fullname}}</span></span><br>
+        <span class="h5 text-capitalize">Address:-<span class="text-gray-800">{{city_name}},{{state}}</span></span><br>
+        <span class="h5 text-capitalize">Contact Number:-<span class="text-gray-800">{{phone}}</span></span><br>
+      </div>
+
+      <div class="col-md-2"></div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <table class="table table-bordered mx-4 my-4">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align:center">Product List</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each product}}
+            <tr>
+              <td style="text-align:center">{{this}} </td>
+            </tr>
+            {{/each}}
+            <tr>
+              <td> &nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-3">
+        <table class="table table-bordered  my-4">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align:center">qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each qty}}
+            <tr>
+              <td style="text-align:center">{{this}} </td>
+            </tr>
+            {{/each}}
+            <tr>
+              <td style="text-align:center">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-3">
+        <table class="table table-bordered mx-n4 my-4">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align:center">Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each rate}}
+            <tr>
+              <td style="text-align:center">{{this}} </td>
+            </tr>
+            {{/each}}
+            <tr>
+              <td style="text-align:center"> TOTAL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-3">
+        <table class="table table-bordered mx-n5 my-4" style="padding-left:12px;">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align:center">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each price}}
+            <tr>
+              <td style="text-align:center">{{this}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+              <td style="text-align:center">{{totalPrice}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     {{#if_eq status 2}}
+      <form action="/product/orderStatus/{{shipping_id}}" method="post" class="d-print-none">
+        <input type="hidden" name="status" value="0">
+        <input type="hidden" name="order" value="pending">
+        <input type="submit" class="btn btn-primary btn-small mx-5" value="Approved">
+      </form>
+      {{else}}
+      <form action="/product/orderStatus/{{shipping_id}}" method="post" class="d-print-none">
+        <input type="hidden" name="status" value="0">
+        <input type="hidden" name="order" value="ordering">
+        <input type="submit" class="btn btn-primary btn-small mx-5" value="Approved">
+      </form>
+      <form action="/product/orderStatus/{{shipping_id}}" method="post" class="d-print-none">
+        <input type="hidden" name="status" value="2">
+         <input type="hidden" name="order" value="ordering">
+        <input type="submit" class="btn btn-warning btn-small mx-5" value="Hold">
+      </form>
+      {{/if_eq}}
+       
+    </div>
+
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-primary d-print-none">Print</button>
+  </div>
+</div>

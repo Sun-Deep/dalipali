@@ -1,0 +1,56 @@
+<table class="table table-hover mx-2 my-4">
+    <h5>New Order</h5>
+    <thead>
+        <tr>
+            <th class="align-middle">Shipping_id</th>
+            <th class="align-middle">FullName</th>
+            <th class="align-middle">Address</th>
+            <th class="align-middle">Phone</th>
+            <th class="align-middle">Order_date</th>
+            <th class="align-middle">Status</th>
+            <th style="padding-left:8%;">Action</th>
+            <th class="align-middle">View</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {{#each result}}
+        <tr>
+            <td>{{order_id}}</td>
+            <td> {{#if_eq fullname 'Anonymous'}}
+                {{name}}
+                {{else}}
+                {{fullname}}
+                {{/if_eq}}
+            </td>
+
+            <td>{{city_name}},{{state}}</td>
+            <td>{{phone}}</td>
+            <td>{{date}}</td>
+            {{#ifEquals status 1}}
+            <td><button type="button" class="btn btn-sm btn-outline-primary">NEW</button></td>
+            {{/ifEquals}}
+            <td>
+                <form class="d-inline" action="/product/orderStatus/{{order_id}}" method="post">
+                    <input type="hidden" name="status" value="2">
+                    <input type="hidden" name="type" value="order">
+                    <button class="btn btn-sm btn-success ">Processing</button>
+                </form>
+                <form class="d-inline" action="/product/orderStatus/{{order_id}}" method="post">
+                    <input type="hidden" name="status" value="4">
+                    <input type="hidden" name="type" value="order">
+                    <button class="btn btn-sm btn-warning  d-inline">HOLD</button>
+                </form>
+                <form class="d-inline" action="/product/orderStatus/{{order_id}}" method="post">
+                    <input type="hidden" name="status" value="5">
+                    <input type="hidden" name="type" value="order">
+                    <button class="btn btn-sm btn-danger  d-inline">Cancel</button>
+                </form>
+            </td>
+            <td>
+                <a href="/viewBill/{{order_id}}/{{fullname}}">View</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,123 @@
+<div class="row">
+  {{#each result}}
+   <a id="add" class="mx-3" href="/Viewproduct/{{category_id}}" > 
+    <h5>{{category_name}}</h5>
+  </a>
+  {{/each}}
+</div>
+
+{{!-- <div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="row">
+      <a class="span2 mx-5" href="/viewProduct">
+        <h5>Milk & Dairy</h5>
+      </a>
+      <a class="span2 mx-5" href="/viewVegetable">
+        <h5 class="text-primary">Vegetable & Fruit</h5>
+      </a>
+      <a class="span2 mx-5" href="/viewRice">
+        <h5>Rice & Pusle</h5>
+      </a>
+
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Milk & Dairy Product</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ProductName</th>
+            <th>Image</th>
+            <th>Rate</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each result}}
+          <tr>
+            <td>{{product_name}}</td>
+            <td><img src="/{{image}}" width="100" height="50"></td>
+            <td>{{price}}
+              <button class="btn btn1" value="{{product_name}}"><i class="fa fa-edit"></i></button>
+              <span class="div-hidden_{{product_name}}" style="display: none ;">
+                <form action="/product/product_edit/{{product_id}}" class="d-block" method="post">
+                  <input hidden="hidden" name="type" value="milk">
+                  <input type="text" name="price" value="{{price}}" size='4'>
+                  <button type="submit" class="btn btn-sm d-inline"><i
+                      class="fas fa-check-circle text-success"></i></button>
+                </form>
+                <button class="btn btn-sm mx-n2 d-inline btn2" value="{{product_name}}"><i
+                    class="fas fa-times-circle text-danger"></i></button>
+              </span>
+            </td>
+            <td>
+              {{#ifEquals status 1}}<form action="/product/productStatus/{{product_id}}" method="post">
+                <input type="hidden" name="status" value="0">
+                <input hidden="hidden" name="type" value="milk">
+                <input type="submit" class="btn btn-primary btn-sm " value="Active">
+              </form>
+              {{else}} <form action="/product/productStatus/{{product_id}}" method="post">
+                <input type="hidden" name="status" value="1">
+                <input hidden="hidden" name="type" value="milk">
+                <button type="submit" class="btn btn-danger btn-sm"> Inactive</button>
+              </form>
+              {{/ifEquals}}
+            </td>
+          </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{{!-- <h7>{{subTitle}}</h7>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ProductName</th>
+          <th>Image</th>
+          <th>Rate</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each result }}
+        <tr>
+          <td class="align-middle">{{product_name}}</td>
+          <td><img src="/{{image}}" width="43" height="43"></td>
+          <td class="align-middle d-block">{{price}} <button class="btn btn1" value="{{product_name}}"><i
+                class="fa fa-edit"></i></button>
+            <span class="div-hidden_{{product_name}}" style="display: none ;">
+              <form action="/product/product_edit/{{product_id}}" class="d-block" method="post">
+                <input type="text" name="price" value="{{price}}" size='4'>
+                <button type="submit" class="btn btn-sm d-inline"><i
+                    class="fas fa-check-circle text-success"></i></button>
+              </form>
+              <button class="btn btn-sm mx-n2 d-inline btn2" value="{{product_name}}"><i
+                  class="fas fa-times-circle text-danger"></i></button>
+            </span>
+          </td>
+          <td class="align-middle">{{#ifEquals status 1}}<form action="/product/productStatus/{{product_id}}"
+              method="post">
+              <input type="hidden" name="status" value="0">
+              <input type="submit" class="btn btn-primary btn-sm " value="Active">
+            </form>
+            {{else}} <form action="/product/productStatus/{{product_id}}" method="post">
+              <input type="hidden" name="status" value="1">
+              <button type="submit" class="btn btn-danger btn-sm"> Inactive</button>
+            </form>
+            {{/ifEquals}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>--}}

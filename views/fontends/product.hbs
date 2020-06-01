@@ -1,0 +1,20 @@
+<div class="clear-fixed"></div>
+<h3 class="text-center my-5 font-weight-bolder"> Our Product</h3>
+<div class="container-fluid">
+     <div class="row mx-4">
+        {{#each result}}
+        <div class="card cardItem my-5 mx-2 h-100" style="width:17rem">
+           <a href="/moreDetail/{{product_id}}"><img class="card-img-top card-item-image" src="/{{image}}" alt="Card image cap" height="150" width="42"> </a>
+            <div class="card-body">
+                <h7 class="card-title card-item-title">{{product_name}}(1kg)</h7>
+                <p class="card-rate card-item-price">Rs {{price}}</p>
+                <center>
+                    <a id="add" class="btn btn-success shop-item-button text-white mb-3 bnt-font" style="cursor:pointer"
+                        data-product_id="{{product_id}}">ADD TO CART</a>
+                </center>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+

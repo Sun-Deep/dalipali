@@ -1,0 +1,39 @@
+<div class="col-md-3"></div>
+
+    <form class="card-body" action="/product/addStock" method="post" id="bootstrapForm">
+        <div class="form-group">
+            <h5><label for="formGroupExampleInput">Product_name</label></h5>
+           <select class="custom-select" id="inputGroupSelect01" name="product">
+                        <option selected>Choose...</option>
+                        {{#each result }}
+                        <option value="{{product_id}}">{{product_name}}</option>
+                        {{/each}}
+                    </select>
+        </div>
+          
+        <div class="form-group">
+            <h5><label for="formGroupExampleInput">Quantity(kg)</label></h5>
+            <input type="number" class="form-control" id="formGroupExampleInput" placeholder="900"
+                name="quantity">
+        </div>
+        <div class="form-group">
+            <h5> <label for="formGroupExampleInput1">Status</label></h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="gridRadios1" value="1" checked>
+                <label class="form-check-label" for="gridRadios1">
+                    Active
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="gridRadios1" value="0">
+                <label class="form-check-label" for="gridRadios1">
+                    Inactive
+                </label>
+            </div>
+        </div>
+            <div class="form-group">
+                 <input type="submit" class="btn btn-primary px-4" value="Add Stock">
+            </div>
+            
+    </form>
+<div class="col-md-3"></div>

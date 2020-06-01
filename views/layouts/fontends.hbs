@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Dalipali</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <style>
+    @media only screen and (max-width: 600px) {
+      body {
+        font-size: .65rem !important;
+        overflow-x: hidden !important;
+      }
+
+      .log-form {
+        padding: 10px !important;
+      }
+
+      .bnt-font {
+        font-size: .65rem !important;
+      }
+
+      .bnt-margin {
+        margin-left: -50%;
+      }
+
+      .guest-card {
+        margin-left: 10%;
+      }
+
+      .bg-color {
+        height: 30vh !important;
+      }
+
+      .bg-text {
+        right: -43.5% !important;
+      }
+
+      .bg-text .input-group {
+        width: 90%;
+      }
+
+      .bg-text p {
+        font-size: 0.65rem !important;
+        letter-spacing: 0 !important;
+      }
+
+      .side-nav {
+        width: 50px !important;
+      }
+
+      .sidebar .nav-item .nav-link {
+        padding: .75rem 0rem 1rem;
+
+      }
+
+      .nav-item .nav-link span {
+        margin-left: -60px;
+
+      }
+
+      /*product-icons*/
+      .nav-items-left {
+        margin-left: -70px !important;
+      }
+
+      .drop-menus {
+        margin-left: 45% !important;
+        top: -14px !important;
+        left: 0% !important;
+      }
+
+      .btn-xs {
+        padding: 0px;
+      }
+
+      .btn-xss {
+        padding: 1px;
+
+      }
+
+      .mr {
+        margin-right: 3px !important;
+      }
+
+      .ml {
+        margin-left: 3px !important;
+      }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {
+      /*body {
+        background-color: blue !important;
+      }*/
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+      /*body {
+        background-color: yellow !important;
+      }*/
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+      /* body {
+        background-color: greenyellow !important;
+      }*/
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+      /* body {
+        background-color: salmon !important;
+      } */
+
+      .bnt-margin {
+        margin-left: 45%;
+      }
+
+      .drop-menus {
+        margin-left: 45% !important;
+        top: -14px !important;
+        left: 50% !important;
+
+      }
+    }
+
+    body {
+      color: #212121;
+      font-family: sans-serif;
+      overflow-x: hidden;
+      line-height: normal;
+      background-color: #f7f7f7;
+    }
+
+    /* Margin -right*/
+    .mr {
+      margin-right: 20px;
+    }
+
+    .ml {
+      margin-left: 20px;
+    }
+
+    line {
+      margin-left: 0px !important;
+      margin-right: 31% !important;
+    }
+
+    .tables {
+      margin-bottom: 0rem !important;
+    }
+
+    .top-bar {
+      top: -6px !important;
+    }
+
+    .side-nav {
+      position: fixed;
+      width: 100px;
+      height: 100%;
+      z-index: 1;
+      top: 0px;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+
+    .side-body {
+      margin-left: 7%;
+    }
+
+    .nav-item @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+    }
+
+    .bg-color {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.45)), url('back1.jpg');
+      background-position: center center;
+      height: 65vh;
+      background-size: cover;
+      position: relative;
+    }
+
+    .bg-text {
+      position: absolute;
+      right: 4.5%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .bg-text p {
+      font-size: 20px;
+      color: whitesmoke;
+      font-family: ;
+      letter-spacing: 1px;
+      line-height: 1px;
+
+    }
+
+    .bg-text a {
+      margin-left: 35%;
+    }
+
+    h3 {
+      position: relative;
+      color: #212121;
+    }
+
+    h3::after {
+      content: '';
+      background: #1cc88a;
+      height: 2px;
+      width: 8%;
+      position: absolute;
+      bottom: -60%;
+      left: 47%;
+    }
+
+    .sidebar {
+      width: 6.5rem !important;
+      height: 100vh
+    }
+
+    .icons {
+      font-size: 25px !important;
+
+    }
+
+    .font-icons {
+      font-size: 30px !important;
+    }
+
+    .header_name {
+
+      font-weight: 700;
+      color: #858585;
+      margin-left: 5%;
+    }
+
+    .moreviews {
+      color: #1cc88a;
+      margin-left: 5%;
+    }
+
+    .moreviews:hover {
+      color: #17a672;
+    }
+
+    .navbar-nav .dropdown-menu {
+      position: absolute !important;
+    }
+
+    .dropdown:hover .drop-menus {
+      display: block;
+    }
+  </style>
+
+</head>
+
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <nav class="bg-gradient-success side-nav">
+      <ul class="navbar-nav sidebar sidebar-dark fixed-top top-bar" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <li class="sidebar-brand d-flex align-items-center" href="#"></a>
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink icons"></i>
+          </div>
+
+        </li>
+
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider line">
+        <!-- Nav Item - Tables -->
+        <li class="nav-item ">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-home d-block  mb-1 icons"></i>
+            <span class="d-block">Home</span></a>
+        </li>
+        <li class="nav-item dropright dropdown " style="margin-top: -10%;">
+          <a href="/product_view" class="nav-link" data-toggle="dropdowns" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-cheese  mb-1 icons nav-items-left"></i>
+            <span class="d-block">Product</span></a>
+          </a>
+          <div class="dropdown-menu drop-menus">
+            <div id="dropdowns">
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/contactUs">
+            <i class="fas fa-fw fa-phone d-block  mb-1 rotate-n-15 icons "></i>
+            <span>Contact</span></a>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" href="">
+            <i class="fas fa-fw fa-table d-block mb-1 icons"></i>
+            <span>About Us</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/cart-view">
+            <i class="fas fa-fw fa-cart-plus  d-block mb-1 icons font-icons"><span aria-hidden="true"
+                class="badge d-block" style="margin-top: -3rem; margin-left: 5px;">{{session.cart.totalQty}}</span></i>
+            <span class="d-block  mb-1" style="margin-top: 1.8rem;">Carts </span>
+          </a>
+        </li>
+        <li class="nav-item top-bar">
+          <a class="nav-link top-bar" href="/subscription">
+            <i class="far fa-user d-block  mb-1 icons nav-items-left"></i>
+            <span>Subscription &nbsp;</span></a>
+        </li>
+        {{#if login }}
+        <li class="nav-item ">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-history d-block mb-1 icons "></i>
+            <span>History</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ">
+            <form action="/auth/logout" method="GET">
+              <button type="submit" class="btn btn-sm nav-items-left"><i
+                  class='far fa-user d-block  mb-1 icons mx-n2 '></i></button>
+            </form>
+            <span class="  my">Logout</span>
+          </a>
+        </li>
+        {{else}}
+        <li class="nav-item top-bar">
+          <a class="nav-link top-bar" href="/login">
+            <i class="far fa-user d-block  mb-1 icons nav-items-left"></i>
+            <span>Login &nbsp;</span></a>
+        </li>
+        {{/if}}
+        
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block top-bar">
+      </ul>
+    </nav>
+  </div>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+
+  <div id="content-wrapper" class="d-flex flex-column side-body">
+
+
+
+    <!-- Begin Page Content -->
+    <div>
+      {{{body}}}
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2019</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!--model-->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div> <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script>
+      $(document).on('click', '#add', function () {
+        var id = $(this).data('product_id');
+
+        $.ajax({
+          type: "GET",
+          data: id,
+          url: '/product/addcart/' + id,
+          success: function (data) {
+            $('.badge').html(data.totalcart);
+            if (data.message1) {
+              $.alert({
+                title: 'Message',
+                content: 'No Item',
+              });
+            }
+            else if (data.message) {
+              $.alert({
+                title: 'Message',
+                content: 'Already in cart',
+              });
+            }
+            else {
+              $.alert({
+                title: 'Message',
+                content: 'Added Item',
+              });
+            }
+          }
+        });
+      });
+
+    </script>
+    <script>
+      window.onload = function () {
+        var vegetable_list = '';
+        var rice_list = '';
+        var category_list = '';
+        $.ajax({
+          type: 'Get',
+          url: '/category',
+          success: function (data) {
+            $.each(data, function () {
+              $.each(this, function (k, v) {
+                category_list += '<div class="dropdown-divider"></div>'
+                category_list += '<a class="dropdown-item mx-auto" href="/product_view/' + v.category_id + '">' + v.category_name + '</a>'
+                category_list += '<div class="dropdown-divider"></div>'
+
+              });
+            });
+            $('#dropdowns').append(category_list);
+          }
+        });
+        $.ajax({
+          type: 'Get',
+          url: '/vegetable',
+          success: function (data) {
+            if (data.result.length == 0) {
+            }
+            else {
+              vegetable_list += '<h7 class="header_name">' + 'Vegetable &  Product' + '</h7>'
+              vegetable_list += '<a class="moreviews" href="/product_view/3">' + 'More View' + '</a>'
+              vegetable_list += '<div class="row mx-4" id="row">'
+              $.each(data, function () {
+                $.each(this, function (k, v) {
+                  vegetable_list += '<div class="card cardItem my-5 mx-2 h-100" style = "width:17rem" >'
+                  vegetable_list += '<img class="card-img-top card-item-image" src="/' + v.image + '" alt="Card image cap" height="150" width="42">'
+                  vegetable_list += '<div class="card-body">'
+                  vegetable_list += '<h7 class="card-title card-item-title">' + v.product_name + '(1kg)' + '</h7>'
+                  vegetable_list += '<p class="card-rate card-item-price" >' + 'Rs' + v.price + '</p >'
+                  vegetable_list += '<center>'
+                  vegetable_list += '<a id="add" class="btn btn-success bnt-font shop-item-button text-white mb-3" style="cursor:pointer" data-product_id="' + v.product_id + '">' + 'ADD TO CART' + '</a>'
+                  vegetable_list += '</center>'
+                  vegetable_list += '</div >'
+                  vegetable_list += '</div >'
+                });
+              });
+              vegetable_list += '</div >'
+              $('#container-fluid').append(vegetable_list);
+            }
+          }
+        });
+        $.ajax({
+          type: 'Get',
+          url: '/dal&pulse',
+          success: function (data) {
+            if (data.result.length == 0) {
+            }
+            else {
+              rice_list += '<h7 class="header_name">' + 'Dal & Pulse' + '</h7>'
+              rice_list += '<a class="moreviews"href="/product_view/2 ">' + 'More View' + '</a>'
+              rice_list += '<div class="row mx-4" id="row">'
+              $.each(data, function () {
+                $.each(this, function (k, v) {
+                  rice_list += '<div class="card cardItem my-5 mx-2 h-100" style = "width:17rem" >'
+                  rice_list += '<img class="card-img-top card-item-image" src="/' + v.image + '" alt="Card image cap" height="150" width="42">'
+                  rice_list += '<div class="card-body">'
+                  rice_list += '<h7 class="card-title card-item-title">' + v.product_name + '(1kg)' + '</h7>'
+                  rice_list += '<p class="card-rate card-item-price" >' + 'Rs' + v.price + '</p >'
+                  rice_list += '<center>'
+                  rice_list += '<a id="add" class="btn btn-success bnt-font shop-item-button text-white mb-3" style="cursor:pointer" data-product_id="' + v.product_id + '">' + 'ADD TO CART' + '</a>'
+                  rice_list += '</center>'
+                  rice_list += '</div >'
+                  rice_list += '</div >'
+                });
+              });
+              rice_list += '</div >'
+              $('#container-fluids').append(rice_list);
+            }
+          }
+        })
+
+      };
+    </script>
+    <script>
+      $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      });
+      function check() {
+        var pass1 = $('#password').val()
+        var pass2 = $('#confirmpassword').val()
+        if (pass1 == pass2) {
+          $('#message').html('Password Matched')
+          $('#registerbtn').attr('disabled', false)
+
+        } else {
+          $('#message').html('Password does not match')
+          $('#registerbtn').attr('disabled', true)
+
+        }
+      }
+
+
+    </script>
+</body>
+
+</html>
