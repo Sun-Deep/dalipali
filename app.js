@@ -13,8 +13,7 @@ const isAuthenticated = require('./config/passport').isAuthenticated;
 const isUser = require('./config/passport').isUser;
 const isAdmin = require('./config/passport').isAdmin;
 var flash = require('express-flash');
-const dotenv = require('dotenv')
-dotenv.config()
+require('dotenv').config()
 
 //const checkToken = require('./api/middleware/check-auth');
 const expressHbs = require('express-handlebars')

@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-md-3 p-2">
+        <p>Name: {{details.name}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Address: {{details.address}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Phone: {{details.phone}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Product: <span class="btn btn-primary btn-sm">{{details.product_name}}</span></p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Start Date: {{details.startdate}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>End Date: {{details.enddate}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Time Slot: {{details.timeslot}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Deliver Mode: <span class="btn btn-primary btn-sm">{{details.delivermode}}</span></p>
+    </div>
+    
+    <div class="col-md-12 p-2">
+        <form action="/subscription/deliverTrial" class="form-inline" method="POST">
+            <div class="form-group">
+                <label for="deliverdate" class="mr-2">Select Deliver Date:</label>
+                <input type="date" name="deliverdate" id="deliverdate" class="form-control mr-2">
+                <input type="hidden" name="trialid" id="trialid" value="{{details.id}}">
+                <input type="submit" class="btn btn-success btn-sm form-control">
+            </div>
+           
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Deliver Status</th>
+                </tr>
+            </thead>
+            <tbody id="dates">
+                {{#each records}}
+                    <tr>
+                        <td>{{deliver_date}}</td>
+                        {{#if_eq status 0}}
+                            <td>
+                                <input type="checkbox" name="delivered{{id}}" id="delivered{{id}}" onchange="changeDeliverStatus({{id}})">
+                            </td>
+                        {{else}}
+                            <td>
+                                <input type="checkbox" name="delivered{{id}}" id="delivered{{id}}" checked onchange="changeDeliverStatus({{id}})">
+                            </td>
+                        {{/if_eq}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+
+    function appendLeadingZeroes(n){
+        if(n <= 9){
+            return "0" + n;
+        }
+        return n
+    }
+
+    let startdate = new Date('{{details.startdate}}')
+    startdate = startdate.getFullYear() + "-" + appendLeadingZeroes(startdate.getMonth() + 1) + "-" + appendLeadingZeroes(startdate.getDate())
+
+
+    let enddate = new Date('{{details.enddate}}')
+    enddate = enddate.getFullYear() + "-" + appendLeadingZeroes(enddate.getMonth() + 1) + "-" + appendLeadingZeroes(enddate.getDate())
+
+    
+    document.getElementById('deliverdate').setAttribute('min', startdate)
+    document.getElementById('deliverdate').setAttribute('max', enddate)
+
+    function changeDeliverStatus(id){
+        var a = document.getElementById('delivered'+id).checked
+        let status = ''
+        if (a){
+            status = 1
+        }else{
+            status = 0
+        }
+        $.ajax({
+            url: '/subscription/deliverStatus/' + id + '/' + status,
+            type: 'GET',
+            success: (data) => {
+                alert(data.success)
+            }
+        })
+    }
+
+</script>

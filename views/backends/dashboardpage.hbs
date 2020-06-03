@@ -1,0 +1,192 @@
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard/{{title}}</h1>
+            <form action="/auth/logout">
+              <input type="submit" class="btn btn-info " value="Logout">
+            </form>
+          </div>
+          <div class="row">
+            <a href="/viewOrder">
+              <!-- [[[[[[[[[[New Order ]]]]]]]]]]]]]]]-->
+              <div class=" col-md-2 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">New <br>Order</div>
+                        <div class="total h5 mb-0 font-weight-bold text-gray-800"></div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </a>
+          </div>
+          <!-- Processing Order -->
+          <div class=" col-md-2 mb-4">
+            <a href="/ProcessingOrder">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Procssing</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800 package">&nbsp;</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Shipping Order -->
+          <div class=" col-md-2 mb-4">
+            <a href="/ShippingOrder">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Shipped</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 ready">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class=" col-md-2 mb-4">
+            <a href="/DeliveredOrder">
+              <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:#3F729B;">Delivered</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 delivered">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class=" col-md-2 mb-4">
+            <a href="/PendingOrder">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending <br>
+                        Order</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800 pending">&nbsp;</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class=" col-md-2 mb-4">
+            <a href="/CencellingOrder">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Cancelled Order</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 cenceling">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        
+
+
+        <script>
+    function fetchdata() {
+      $.ajax({
+        url: '/NewOrder',
+        type: 'GET',
+        success: function (data) {
+          // Perform operation on the return value
+
+          $('.badge-counter').html(data.count);
+          $('.total').html(data.count);
+        }
+      });
+      $.ajax({
+        url: '/Processing',
+        type: 'GET',
+        success: function (data) {
+          $('.package').html(data.count);
+        }
+      });
+      $.ajax({
+        url: '/Pending',
+        type: 'GET',
+        success: function (data) {
+          $('.pending').html(data.count);
+        }
+      });
+    }
+    function fetch() {
+      $.ajax({
+        url: '/Shipping',
+        type: 'GET',
+        success: function (data) {
+          $('.ready').html(data.count);
+        }
+      });
+      $.ajax({
+        url: '/Delivered',
+        type: 'GET',
+        success: function (data) {
+          $('.delivered').html(data.count);
+        }
+      });
+      $.ajax({
+        url: '/Cencelled',
+        type: 'GET',
+        success: function (data) {
+          $('.cenceling').html(data.count);
+        }
+      });
+    }
+    $(document).ready(() => {
+        fetchdata()
+        fetch()
+    })
+    $(document).ready(function () {
+      setInterval(fetchdata, 60000);
+      setInterval(fetch, 60000);
+    });
+
+    
+  </script>

@@ -288,12 +288,13 @@
       <ul class="navbar-nav sidebar sidebar-dark fixed-top top-bar" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <li class="sidebar-brand d-flex align-items-center" href="#"></a>
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink icons"></i>
+        <a class="sidebar-brand d-flex align-items-center" href="/">
+          <div class="sidebar-brand-icon rotate-n-15 mr-2">
+            {{!-- <i class="fas fa-laugh-wink icons"></i> --}}
+            <p>Dalipali</p>
           </div>
 
-        </li>
+        </a>
 
 
 
@@ -336,7 +337,8 @@
         </li>
         <li class="nav-item top-bar">
           <a class="nav-link top-bar" href="/subscription">
-            <i class="far fa-user d-block  mb-1 icons nav-items-left"></i>
+          
+            <i class="fas fa-bell d-block  mb-1 icons nav-items-left"></i>
             <span>Subscription &nbsp;</span></a>
         </li>
         {{#if login }}
@@ -349,7 +351,7 @@
           <a class="nav-link ">
             <form action="/auth/logout" method="GET">
               <button type="submit" class="btn btn-sm nav-items-left"><i
-                  class='far fa-user d-block  mb-1 icons mx-n2 '></i></button>
+                  class='fas fa-user d-block  mb-1 icons mx-n2 '></i></button>
             </form>
             <span class="  my">Logout</span>
           </a>
@@ -357,7 +359,7 @@
         {{else}}
         <li class="nav-item top-bar">
           <a class="nav-link top-bar" href="/login">
-            <i class="far fa-user d-block  mb-1 icons nav-items-left"></i>
+            <i class="fas fa-user d-block  mb-1 icons nav-items-left"></i>
             <span>Login &nbsp;</span></a>
         </li>
         {{/if}}
