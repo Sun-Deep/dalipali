@@ -39,4 +39,9 @@ router.route('/deliverTrial')
 
 router.route('/deliverStatus/:id/:status')
     .get(isAuthenticated, isAdmin, subscriptionController.changeDeliverStatus)
+
+router.route('/subscribeRequest')
+    .get(isAuthenticated, subscriptionController.subscribeRequest)
+
+
 module.exports = router

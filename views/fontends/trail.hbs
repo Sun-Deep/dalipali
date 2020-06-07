@@ -90,37 +90,9 @@
                 <label for="form-check-label" for="">Ring Bell</label>
             </div>
         </div>
-        {{!-- <div class="form-group mt-4" id="days" style="display: none;">
-            <label for="" class="text-muted">Day 1</label>
-                <button type="button" class="btn btn-success btn-sm" onclick="add()">+</button>
-                <input type="text" class="" id="qty" style="width: 50px; border:1px solid gray; text-align: center;">
-                <button type="button" class="btn btn-success btn-sm" onclick="sub()">-</button>
-        </div> --}}
+        
         <input type="submit" value="Submit" class="btn btn-success btn-md">
         </form>
     </div>
 </div>
 
-{{!-- <script>
-    function add(){
-        var qty = document.getElementById('qty').value != '' ? document.getElementById('qty').value : "0"
-        document.getElementById('qty').value = parseFloat(qty) + 0.5 + "L"
-    }
-
-    function sub(){
-        var qty = document.getElementById('qty').value != '' ? document.getElementById('qty').value : "0"
-        qty = qty.split(" ")[0]
-        if (parseFloat(qty) > 0){
-            document.getElementById('qty').value = parseFloat(qty) - 0.5 + "L"
-        } 
-    }
-
-    function showDays(){
-        if(document.getElementById('diffquantity').checked){
-            document.getElementById('days').style.display = 'block'
-        }else{
-            document.getElementById('days').style.display = 'none'
-        }
-    }
-    
-</script> --}}

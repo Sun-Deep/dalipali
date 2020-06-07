@@ -178,6 +178,20 @@ module.exports = {
                 res.json({'success': 'Updated Sccessfully'})
             }
         })
+    },
+
+    subscribeRequest: (req, res, next) => {
+        db.query("SELECT * FROM product_table WHERE category_id = 1", (error, products, fields) => {
+            res.render(
+                'backends/subscription/subscribeRequest',
+                {
+                    products: products, 
+                    error: req.flash('error'), 
+                    msg: req.flash('msg')
+                }
+            )
+        })
+        
     }
 }
 
