@@ -53,6 +53,7 @@ module.exports = {
                [value.name, value.address, value.phone, value.product_id, startdate, enddate, timeslot, value.delivermode], (error, results, fields) => {
                    if (error){
                        console.log(error)
+                       req.flash('error', 'Something went wrong. Please try again later')
                        res.redirect('/subscription/trial')
                    }else{
                        req.flash('msg', 'Trail subscription requested successfully')
@@ -180,14 +181,99 @@ module.exports = {
         })
     },
 
-    subscribeRequest: (req, res, next) => {
+    loadSubscribeRequest: (req, res, next) => {
         db.query("SELECT * FROM product_table WHERE category_id = 1", (error, products, fields) => {
             res.render(
-                'backends/subscription/subscribeRequest',
+                'fontends/subscribeRequest',
                 {
                     products: products, 
                     error: req.flash('error'), 
                     msg: req.flash('msg')
+                }
+            )
+        })
+        
+    },
+
+    subscribeRequest: (req, res, next) => {
+        let {product, startdate, enddate, timeslot1, qtytime1, timeslot2, qtytime2, timeslot3, qtytime3, delivermode} = req.body
+        const schema = Joi.object({
+            product: Joi.number().required(),
+            startdate: Joi.string().required(),
+            enddate: Joi.string().required(),
+            delivermode: Joi.string().required()
+        })
+
+        const {error, value} = schema.validate({product, startdate, enddate, delivermode}, {abortEarly: false})
+        if (error){
+            console.log(error.details[0].message)
+            req.flash('error', error.details[0].message)
+            res.redirect('/subscription/subscribeRequest')
+        }else{
+            if (!timeslot1 && !timeslot2 && !timeslot3){
+                req.flash('error', 'Time slot should be selected')
+                res.redirect('/subscription/subscribeRequest')
+            }else{
+                if(!timeslot1){
+                    qtytime1 = null
+                }else{
+                    if(!qtytime1){
+                        req.flash('error', 'Quantity should not be empty.')
+                        res.redirect('/subscription/subscribeRequest')
+                    }
+                }
+                if(!timeslot2){
+                    qtytime2 = null
+                }else{
+                    if(!qtytime2){
+                        req.flash('error', 'Quantity should not be empty.')
+                        res.redirect('/subscription/subscribeRequest')
+                    }
+                }
+                if(!timeslot3){
+                    qtytime3 = null
+                }else{
+                    if(!qtytime3){
+                        req.flash('error', 'Quantity should not be empty.')
+                        res.redirect('/subscription/subscribeRequest')
+                    }
+                }
+
+                db.query("INSERT INTO subs_permanent (user_id, product_id, startdate, enddate, timeslot1, timeslot2, timeslot3, qtytimeslot1, qtytimeslot2, qtytimeslot3, delivermode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                [req.session.passport.user.id, value.product, value.startdate, value.enddate, timeslot1, timeslot2, timeslot3, qtytime1, qtytime2, qtytime3, value.delivermode], 
+                (error, results, fields) => {
+                    if (error) {
+                        console.log(error)
+                        req.flash('error', 'Something went wrong. Please try again later.')
+                        res.redirect('/subscription/subscribeRequest')
+                    }else{
+                        req.flash('msg', 'Subscription requested successfully. You will be contacted soon.')
+                        res.redirect('/subscription/subscribeRequest')
+                    }
+
+                })
+               
+               
+            }
+        }
+    },
+
+    viewSubscribeRequest: (req, res, next) => {
+        db.query("SELECT subs_permanent.*, user_table.fullname, user_table.address, user_table.phone, product_table.product_name FROM subs_permanent, user_table, product_table WHERE subs_permanent.user_id = user_table.user_id AND product_table.product_id = subs_permanent.product_id AND subs_permanent.status = 0 AND subs_permanent.deleted = 0",
+        (error, results, fields) => {
+            
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            if (results.length > 0){
+                results.forEach(element => {
+                    element.startdate = element.startdate.toLocaleDateString('en-US', options)
+                    element.enddate = element.enddate.toLocaleDateString('en-US', options)
+                });
+            }
+            res.render(
+                'backends/subscription/subscribeRequest',
+                {   
+                    layout: 'layout',
+                    results: results
                 }
             )
         })

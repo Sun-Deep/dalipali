@@ -41,7 +41,10 @@ router.route('/deliverStatus/:id/:status')
     .get(isAuthenticated, isAdmin, subscriptionController.changeDeliverStatus)
 
 router.route('/subscribeRequest')
-    .get(isAuthenticated, subscriptionController.subscribeRequest)
+    .get(isAuthenticated, subscriptionController.loadSubscribeRequest)
+    .post(isAuthenticated, subscriptionController.subscribeRequest)
 
+router.route('/request')
+    .get(isAuthenticated, isAdmin, subscriptionController.viewSubscribeRequest)
 
 module.exports = router
