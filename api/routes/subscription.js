@@ -47,4 +47,21 @@ router.route('/subscribeRequest')
 router.route('/request')
     .get(isAuthenticated, isAdmin, subscriptionController.viewSubscribeRequest)
 
+router.route('/acceptRequest/:id')
+    .get(isAuthenticated, isAdmin, subscriptionController.acceptRequest)
+
+router.route('/deleteRequest/:id')
+    .get(isAuthenticated, isAdmin, subscriptionController.deleteRequest)
+
+router.route('/viewSubscriptions')
+    .get(isAuthenticated, isAdmin, subscriptionController.viewSubscriptions)
+
+router.route('/details/:id')
+    .get(isAuthenticated, isAdmin, subscriptionController.subscriptionDetails)
+
+router.route('/deliver')
+    .post(isAuthenticated, isAdmin, subscriptionController.deliver)
+
+router.route('/editDeliverStatus')
+    .post(isAuthenticated, isAdmin, subscriptionController.editDeliverStatus)
 module.exports = router

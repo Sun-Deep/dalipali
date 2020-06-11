@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-3 p-2">
+        <p>Name: {{details.fullname}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Address: {{details.address}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Phone: {{details.phone}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Product: <span class="btn btn-primary btn-sm">{{details.product_name}}</span></p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Start Date: {{details.startdate}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>End Date: {{details.enddate}}</p>
+    </div>
+    <div class="col-md-4 p-2">
+        <p>Time Slot: 
+            {{#if details.timeslot1}}
+                {{details.timeslot1}}({{details.qtytimeslot1}}),
+            {{/if}}
+            {{#if details.timeslot2}}
+                {{details.timeslot2}}({{details.qtytimeslot2}}), 
+            {{/if}}
+            {{#if details.timeslot3}}
+                {{details.timeslot3}}({{details.qtytimeslot3}})
+            {{/if}}
+        </p>
+    </div>
+    <div class="col-md-2 p-2">
+        <p>Deliver Mode: <span class="btn btn-primary btn-sm">{{details.delivermode}}</span></p>
+    </div>
+    
+    <div class="col-md-12 p-2">
+        <form action="/subscription/deliver" class="form-inline" method="POST">
+            <div class="form-group">
+                <label for="deliverdate" class="mr-2">Select Deliver Date:</label>
+                <input type="date" name="deliverdate" id="deliverdate" class="form-control mr-2">
+                <input type="hidden" name="deliverid" id="deliverid" value="{{details.id}}">
+                <input type="submit" class="btn btn-success btn-sm form-control">
+            </div>
+           
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    {{#if details.timeslot1}}
+                        <th scope="col">{{details.timeslot1}}</th>
+                    {{/if}}
+                    {{#if details.timeslot2}}
+                        <th scope="col">{{details.timeslot2}}</th>
+                    {{/if}}
+                    {{#if details.timeslot3}}
+                        <th scope="col">{{details.timeslot3}}</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody id="dates">
+                {{#each records}}
+                    <tr>
+                        <td>{{deliver_date}}</td>
+                        {{#if ../details.timeslot1}}
+                            {{#if_eq status1 0}}
+                                <td>
+                                    <input type="checkbox" name="status1{{id}}" id="status1{{id}}" onchange="changeDeliverStatus({{id}}, 1)">
+                                    {{#if qtytimeslot1}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{qtytimeslot1}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{../details.qtytimeslot1}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status1{{id}}" id="status1{{id}}" onchange="changeDeliverStatus({{id}}, 1)" checked>
+                                    {{#if qtytimeslot1}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{qtytimeslot1}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{../details.qtytimeslot1}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                        {{#if ../details.timeslot2}}
+                            {{#if_eq status2 0}}
+                                <td>
+                                    <input type="checkbox" name="status2{{id}}" id="status2{{id}}" onchange="changeDeliverStatus({{id}}, 2)">
+                                    {{#if qtytimeslot2}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{qtytimeslot2}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{../details.qtytimeslot2}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status2{{id}}" id="status2{{id}}" onchange="changeDeliverStatus({{id}}, 2)" checked>
+                                    {{#if qtytimeslot2}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{qtytimeslot2}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{../details.qtytimeslot2}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                        {{#if ../details.timeslot3}}
+                            {{#if_eq status3 0}}
+                                <td>
+                                    <input type="checkbox" name="status3{{id}}" id="status3{{id}}" onchange="changeDeliverStatus({{id}}, 3)">
+                                    {{#if qtytimeslot3}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{qtytimeslot3}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{../details.qtytimeslot3}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status3{{id}}" id="status3{{id}}" onchange="changeDeliverStatus({{id}}, 3)" checked>
+                                   {{#if qtytimeslot3}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{qtytimeslot3}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{../details.qtytimeslot3}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+
+    function appendLeadingZeroes(n){
+        if(n <= 9){
+            return "0" + n;
+        }
+        return n
+    }
+
+    let startdate = new Date('{{details.startdate}}')
+    startdate = startdate.getFullYear() + "-" + appendLeadingZeroes(startdate.getMonth() + 1) + "-" + appendLeadingZeroes(startdate.getDate())
+
+
+    let enddate = new Date('{{details.enddate}}')
+    enddate = enddate.getFullYear() + "-" + appendLeadingZeroes(enddate.getMonth() + 1) + "-" + appendLeadingZeroes(enddate.getDate())
+
+    
+    document.getElementById('deliverdate').setAttribute('min', startdate)
+    document.getElementById('deliverdate').setAttribute('max', enddate)
+
+
+    let qtytimeslot1 = ''
+    let qtytimeslot2 = ''
+    let qtytimeslot3 = ''
+
+    if('{{details.timeslot1}}'){
+
+    }
+
+    let time = {
+        timeslot1: '{{details.timeslot1}}',
+        timeslot2: '{{details.timeslot2}}',
+        timeslot3: '{{details.timeslot3}}'
+    }
+
+    function changeDeliverStatus(id, part){
+        var a = document.getElementById('status'+String(part)+String(id)).checked
+        let status = ''
+
+        let qty= document.getElementById('qtytimeslot'+String(part)+String(id)).value
+        let time_send = time['timeslot'+part]
+        
+
+        if (a){
+            status = 1
+        }else{
+            status = 0
+        }
+        
+        $.ajax({
+            url: '/subscription/editDeliverStatus/',
+            type: 'POST',
+            data: {
+                'quantity': qty,
+                'time': time_send,
+                'part': part,
+                'id': id,
+                'status': status,
+                'subs_id': '{{details.id}}'
+            },
+            success: (data) => {
+                alert(data)
+            }
+        })
+        
+        
+    }
+
+
+</script>

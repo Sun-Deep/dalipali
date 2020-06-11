@@ -4,6 +4,7 @@ const Joi = require('@hapi/joi');
 
 
 module.exports = {
+
     takeTrial: (req, res, next) => {
         db.query("SELECT * FROM product_table WHERE category_id = 1", (error, products, fields) => {
             return res.render('fontends/trail', {products: products, error: req.flash('error'), msg: req.flash('msg')})
@@ -278,6 +279,101 @@ module.exports = {
             )
         })
         
+    },
+
+    acceptRequest: (req, res, next) => {
+        let id = req.params.id
+        db.query("UPDATE subs_permanent SET status = 1 WHERE id = ?",
+        [id], (error, results, fields) => {
+            if (error) console.log(error)
+            res.redirect('/subscription/request')
+        })
+    },
+
+    deleteRequest: (req, res, next) => {
+        let id = req.params.id
+        db.query("UPDATE subs_permanent SET status = 0, deleted = 1 WHERE id = ?",
+        [id], (error, results, fields) => {
+            if (error) console.log(error)
+            res.redirect('/subscription/request')
+        })
+    },
+
+    viewSubscriptions: (req, res, next) => {
+        db.query("SELECT subs_permanent.*, product_table.product_name, user_table.fullname, user_table.address, user_table.phone FROM subs_permanent, product_table, user_table WHERE subs_permanent.user_id = user_table.user_id AND subs_permanent.status = 1 AND subs_permanent.deleted = 0 AND product_table.product_id = subs_permanent.product_id",
+        (error, results, fields) => {
+
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            
+            results.forEach(element => {
+                element.startdate = element.startdate.toLocaleDateString('en-US', options)
+            });
+            res.render(
+                    'backends/subscription/subscriptions', 
+                    {
+                        layout: 'layout',
+                        subscriptions: results
+                    }
+                )
+        })
+    },
+
+    subscriptionDetails: (req, res, next) => {
+        let id = req.params.id
+        console.log(id)
+        db.query("SELECT subs_permanent.*, product_table.product_name, user_table.fullname, user_table.address, user_table.phone FROM subs_permanent, product_table, user_table WHERE subs_permanent.user_id = user_table.user_id AND subs_permanent.id = ? AND subs_permanent.status = 1 AND subs_permanent.deleted = 0 AND product_table.product_id = subs_permanent.product_id", 
+        [id], (error, results, fields) => {
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
+            results.forEach((element) => {
+                element.startdate = element.startdate.toLocaleDateString('en-US', options)
+                element.enddate = element.enddate.toLocaleDateString('en-US', options)
+            })
+
+            db.query("SELECT * FROM subs_permanent_record WHERE subs_permanent_id = ?",
+            [id], (error, records, fields) => {
+                if(records.length > 0){
+                    records.forEach((element) => {
+                        element.deliver_date = element.deliver_date.toLocaleDateString('en-US', options)
+                    })
+                }
+                
+                res.render(
+                    'backends/subscription/subscriptionDetails',
+                    {
+                        layout: 'layout',
+                        details: results[0],
+                        records: records
+                    }
+                )
+            })
+        })
+    },
+
+    deliver: (req, res, next) => {
+        let id = req.body.deliverid
+        let deliver_date = req.body.deliverdate
+
+        db.query("INSERT INTO subs_permanent_record (subs_permanent_id, deliver_date) VALUES (?, ?)",
+        [id, deliver_date], (error, results, fields) => {
+            if(error){
+                console.log(error)
+            }
+            res.redirect('/subscription/details/'+id)
+        })
+    },
+
+    editDeliverStatus: (req, res, next) => {
+        let { quantity, time, part, id, status, subs_id } = req.body
+        db.query("UPDATE subs_permanent_record SET timeslot"+ part +" = ?, qtytimeslot"+ part +" = ?, status"+ part +" = ? WHERE id = ?",
+        [time, quantity, status, id], (error, results, fields) => {
+            if (error){
+                console.log(error)
+                res.json('Updated gone wrong')
+            }else{
+                res.json('Success')
+            }
+        })
     }
 }
 
