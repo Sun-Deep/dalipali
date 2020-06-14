@@ -1,0 +1,278 @@
+{{#if msg}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    {{#if error}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-3 p-2">
+        <p>Name: {{details.fullname}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Address: {{details.address}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Phone: {{details.phone}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Product: <span class="btn btn-primary btn-sm">{{details.product_name}}</span></p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>Start Date: {{details.startdate}}</p>
+    </div>
+    <div class="col-md-3 p-2">
+        <p>End Date: {{details.enddate}}</p>
+    </div>
+
+    <div class="col-md-4 p-2">
+        <p>Time Slot: 
+            {{#if details.timeslot1}}
+                {{details.timeslot1}}({{details.qtytimeslot1}}),
+            {{/if}}
+            {{#if details.timeslot2}}
+                {{details.timeslot2}}({{details.qtytimeslot2}}), 
+            {{/if}}
+            {{#if details.timeslot3}}
+                {{details.timeslot3}}({{details.qtytimeslot3}})
+            {{/if}}
+        </p>
+    </div>
+
+    <div class="col-md-2 p-2">
+        <p>Deliver Mode: <span class="btn btn-primary btn-sm">{{details.delivermode}}</span></p>
+    </div>
+
+    <div class="col-md-4 p-2">
+        <form action="/subscription/reqChangeQty" method="POST">
+            <div class="form-group">
+                <label for="" class="">Select Deliver Date:</label>
+                <input type="date" name="deliver_date" id="deliverdate" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="">Time Slot:</label><br>
+                {{#if details.timeslot1}}
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="6 - 7 AM" id="timeslot1" name="timeslot1" onchange="showDays()">
+                        <label class="form-check-label" for="timeslot1">
+                            6 - 7 AM
+                        </label>
+                        <div id="qtytime1" class="ml-5" style="display: none;">
+                            <label for="" class="text-muted">Quantity</label>
+                            <button type="button" class="btn btn-success btn-sm" onclick="add(1)">+</button>
+                            <input type="text" name="qtytimeslot1" id="qty1" style="width: 50px; border:1px solid gray; text-align: center;">
+                            <button type="button" class="btn btn-success btn-sm" onclick="sub(1)">-</button>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if details.timeslot2}}
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="7 - 8 AM" id="timeslot2" name="timeslot2" onchange="showDays()">
+                        <label class="form-check-label" for="timeslot1">
+                            7 - 8 AM
+                        </label>
+                        <div id="qtytime2" class="ml-5" style="display: none;">
+                            <label for="" class="text-muted">Quantity</label>
+                            <button type="button" class="btn btn-success btn-sm" onclick="add(2)">+</button>
+                            <input type="text" name="qtytimeslot2" id="qty2" style="width: 50px; border:1px solid gray; text-align: center;">
+                            <button type="button" class="btn btn-success btn-sm" onclick="sub(2)">-</button>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if details.timeslot3}}
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="6 - 7 PM" id="timeslot3" name="timeslot3" onchange="showDays()">
+                        <label class="form-check-label" for="timeslot1">
+                            6 - 7 PM
+                        </label>
+                        <div id="qtytime3" class="ml-5" style="display: none;">
+                            <label for="" class="text-muted">Quantity</label>
+                            <button type="button" class="btn btn-success btn-sm" onclick="add(3)">+</button>
+                            <input type="text" name="qtytimeslot3" id="qty3" style="width: 50px; border:1px solid gray; text-align: center;">
+                            <button type="button" class="btn btn-success btn-sm" onclick="sub(3)">-</button>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+
+
+
+            <input type="hidden" name="subs_permanent_id" id="subs_permanent_id" value="{{details.id}}">
+            <input type="submit" class="btn btn-success btn-sm form-control">
+        </form>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    {{#if details.timeslot1}}
+                        <th scope="col">{{details.timeslot1}}</th>
+                    {{/if}}
+                    {{#if details.timeslot2}}
+                        <th scope="col">{{details.timeslot2}}</th>
+                    {{/if}}
+                    {{#if details.timeslot3}}
+                        <th scope="col">{{details.timeslot3}}</th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody id="dates">
+                {{#each records}}
+                    <tr>
+                        <td>{{deliver_date}}</td>
+                        {{#if ../details.timeslot1}}
+                            {{#if_eq status1 0}}
+                                <td>
+                                    <input type="checkbox" name="status1{{id}}" id="status1{{id}}" disabled>
+                                    {{#if qtytimeslot1}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{qtytimeslot1}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{../details.qtytimeslot1}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status1{{id}}" id="status1{{id}}" checked disabled>
+                                    {{#if qtytimeslot1}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{qtytimeslot1}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot1{{id}}" id="qtytimeslot1{{id}}" value="{{../details.qtytimeslot1}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                        {{#if ../details.timeslot2}}
+                            {{#if_eq status2 0}}
+                                <td>
+                                    <input type="checkbox" name="status2{{id}}" id="status2{{id}}" disabled>
+                                    {{#if qtytimeslot2}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{qtytimeslot2}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{../details.qtytimeslot2}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status2{{id}}" id="status2{{id}}" disabled checked>
+                                    {{#if qtytimeslot2}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{qtytimeslot2}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot2{{id}}" id="qtytimeslot2{{id}}" value="{{../details.qtytimeslot2}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                        {{#if ../details.timeslot3}}
+                            {{#if_eq status3 0}}
+                                <td>
+                                    <input type="checkbox" name="status3{{id}}" id="status3{{id}}" disabled>
+                                    {{#if qtytimeslot3}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{qtytimeslot3}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{../details.qtytimeslot3}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{else}}
+                                <td>
+                                    <input type="checkbox" name="status3{{id}}" id="status3{{id}}" onchange="changeDeliverStatus({{id}}, 3)" disabled checked>
+                                   {{#if qtytimeslot3}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{qtytimeslot3}}" class="input-style"  style="border:1px solid red">
+                                    {{else}}
+                                        <input type="text" name="qtytimeslot3{{id}}" id="qtytimeslot3{{id}}" value="{{../details.qtytimeslot3}}" class="input-style">
+                                    {{/if}}
+                                </td>
+                            {{/if_eq}}
+                        {{/if}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<script>
+
+    function appendLeadingZeroes(n){
+        if(n <= 9){
+            return "0" + n;
+        }
+        return n
+    }
+
+    let startdate = new Date('{{details.startdate}}')
+    startdate = startdate.getFullYear() + "-" + appendLeadingZeroes(startdate.getMonth() + 1) + "-" + appendLeadingZeroes(startdate.getDate())
+
+
+    let enddate = new Date('{{details.enddate}}')
+    enddate = enddate.getFullYear() + "-" + appendLeadingZeroes(enddate.getMonth() + 1) + "-" + appendLeadingZeroes(enddate.getDate())
+
+    
+    document.getElementById('deliverdate').setAttribute('min', startdate)
+    document.getElementById('deliverdate').setAttribute('max', enddate)
+
+
+
+    function add(num){
+        var qty = document.getElementById('qty' + num).value != '' ? document.getElementById('qty' + num).value : "0"
+        document.getElementById('qty' + num).value = parseFloat(qty) + 0.5 + "L"
+    }
+
+    function sub(num){
+        var qty = document.getElementById('qty' + num).value != '' ? document.getElementById('qty' + num).value : "0"
+        qty = qty.split(" ")[0]
+        if (parseFloat(qty) > 0){
+            document.getElementById('qty' + num).value = parseFloat(qty) - 0.5 + "L"
+        } 
+    }
+
+
+    function showDays(){
+        if('{{details.timeslot1}}'){
+            if(document.getElementById('timeslot1').checked){
+            document.getElementById('qtytime1').style.display = 'inline'
+            
+            }else{
+            document.getElementById('qtytime1').style.display = 'none'
+            
+            }
+        }
+
+        if('{{details.timeslot2}}'){
+            if(document.getElementById('timeslot2').checked){
+            document.getElementById('qtytime2').style.display = 'inline'
+            
+            }else{
+            document.getElementById('qtytime2').style.display = 'none'
+            
+            }
+        }
+        
+        if('{{details.timeslot3}}'){
+            if(document.getElementById('timeslot3').checked){
+            document.getElementById('qtytime3').style.display = 'inline'
+        }else{
+            document.getElementById('qtytime3').style.display = 'none'
+        }
+        }
+        
+        
+    }
+
+</script>

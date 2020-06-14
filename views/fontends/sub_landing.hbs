@@ -4,6 +4,10 @@
     <div class="mx-auto text-center">
         <a href="/subscription/trial" class="btn btn-success btn-lg mt-5 mb-5">TAKE A TRIAL</a>
         <br>
-        <a href="/subscription/subscribeRequest" class="btn btn-success btn-lg">TAKE A SUBSCRIPTION</a>
+        <a href="/subscription/subscribeRequest" class="btn btn-success btn-lg mb-5">TAKE A SUBSCRIPTION</a>
+        <br>
+        {{#if login}}
+            <a href="/subscription/mySubscription" class="btn btn-success btn-lg">View My Subscription</a>
+        {{/if}}
     </div>
 </div>

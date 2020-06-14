@@ -64,4 +64,10 @@ router.route('/deliver')
 
 router.route('/editDeliverStatus')
     .post(isAuthenticated, isAdmin, subscriptionController.editDeliverStatus)
+
+router.route('/mySubscription')
+    .get(isAuthenticated, subscriptionController.mySubscription)
+
+router.route('/reqChangeQty')
+    .post(isAuthenticated, subscriptionController.reqChangeQty)
 module.exports = router

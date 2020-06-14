@@ -1,5 +1,6 @@
 const db = require('../../config/db');
 const Joi = require('@hapi/joi');
+const { object } = require('@hapi/joi');
 
 
 
@@ -320,7 +321,7 @@ module.exports = {
 
     subscriptionDetails: (req, res, next) => {
         let id = req.params.id
-        console.log(id)
+    
         db.query("SELECT subs_permanent.*, product_table.product_name, user_table.fullname, user_table.address, user_table.phone FROM subs_permanent, product_table, user_table WHERE subs_permanent.user_id = user_table.user_id AND subs_permanent.id = ? AND subs_permanent.status = 1 AND subs_permanent.deleted = 0 AND product_table.product_id = subs_permanent.product_id", 
         [id], (error, results, fields) => {
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
@@ -374,6 +375,64 @@ module.exports = {
                 res.json('Success')
             }
         })
+    },
+
+    mySubscription: (req, res, next) => {
+        let id = req.session.passport.user.id
+        db.query("SELECT subs_permanent.*, product_table.product_name, user_table.fullname, user_table.address, user_table.phone FROM subs_permanent, product_table, user_table WHERE subs_permanent.user_id = user_table.user_id AND subs_permanent.user_id = ? AND subs_permanent.status = 1 AND subs_permanent.deleted = 0 AND product_table.product_id = subs_permanent.product_id",
+        [id], (error, results, fields) => {
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
+            results.forEach((element) => {
+                element.startdate = element.startdate.toLocaleDateString('en-US', options)
+                element.enddate = element.enddate.toLocaleDateString('en-US', options)
+            })
+
+            db.query("SELECT * FROM subs_permanent_record WHERE subs_permanent_id = ?",
+            [results[0].id], (error, records, fields) => {
+                if(records.length > 0){
+                    records.forEach((element) => {
+                        element.deliver_date = element.deliver_date.toLocaleDateString('en-US', options)
+                    })
+                }
+                
+                res.render(
+                    'fontends/mySubscription',
+                    {
+                        details: results[0],
+                        records: records,
+                        error: req.flash('error'), 
+                        msg: req.flash('msg')
+                    }
+                )
+            })
+        })
+    },
+
+    reqChangeQty: (req, res, next) => {
+        console.log(req.body)
+        Object.keys(req.body).forEach((element) => {
+            if(!req.body[element]){
+                delete req.body[element]
+            }else{
+                req.body[element] = String(req.body[element])
+            }
+        })
+        let k = Object.keys(req.body)
+        let v = Object.values(req.body)
+        let q = "INSERT INTO subs_permanent_record ("+ k +") VALUES ("+ v.map(a => {return `'${a}'`}) +")"
+        console.log(q)
+        db.query(q, [], (error, results, fields) => {
+            if (error){
+                console.log(error)
+                req.flash('error', 'Something went wrong')
+                res.redirect('/subscription/mySubscription')
+            }else{
+                req.flash('msg', 'Requested Successfully')
+                res.redirect('/subscription/mySubscription')
+            }
+        })
+        console.log(req.body)
     }
 }
 
